@@ -187,13 +187,13 @@
 									<div class="input-group input-borderless">
 										<input type="text" v-model="searchQuery" placeholder="Search for products..."
 											class="form-control me-1" />
-										
+
 									</div>
 								</form>
 							</div>
 						</div>
 						<!-- Search option END -->
-						
+
 
 						<!-- Course Grid START -->
 						<div class="row g-4">
@@ -288,7 +288,7 @@
 
 	<!--  MAIN CHECKOUT CONTENT START  -->
 	<main v-else>
-     
+
 		<!-- 
      Page Banner START -->
 		<section class="py-0">
@@ -297,7 +297,7 @@
 					<div class="col-12">
 						<div class="bg-light p-4 text-center rounded-3">
 							<h1 class="m-0">Checkout</h1>
-							
+
 						</div>
 					</div>
 				</div>
@@ -325,7 +325,7 @@
 								<div class="col-md-6 bg-light-input">
 									<label for="yourName" class="form-label">Your name *</label>
 									<input type="text" class="form-control" id="yourName" v-model="formData.name"
-										placeholder="Name">
+										placeholder="Name" @input="preventSpaces">
 								</div>
 								<!-- Email -->
 
@@ -527,9 +527,12 @@
 			// Validate checkout form
 			validateForm() {
 				this.formIsValid =
-					this.formData.name.trim() ;
-					
-			}
+					this.formData.name.trim();
+
+			},
+			preventSpaces(event) {
+				this.formData.name = event.target.value.replace(/\s+/g, ''); // Remove spaces
+			},
 		},
 		computed: {
 			itemsInTheCart() {
@@ -566,6 +569,7 @@
 					);
 				});
 			},
+
 		},
 		watch: {
 			// Watch formData and validate the form when changes occur
